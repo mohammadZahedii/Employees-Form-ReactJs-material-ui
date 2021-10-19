@@ -8,7 +8,7 @@ export default function SideMenu(){
         <Box sx={{
             width:[,,'320px'],
             height:'100%',
-            backgroundColor:'#253053',
+            backgroundColor:t=>t.palette.primary.main,
             position:'absolute',
             top:0,
             left:0,
