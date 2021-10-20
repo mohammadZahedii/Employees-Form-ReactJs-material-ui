@@ -24,7 +24,7 @@ const theme =createTheme({
       
     },
     shape:{
-        borderRadius:'4px'
+        borderRadius:4
     },
   
     components:{
@@ -32,7 +32,6 @@ const theme =createTheme({
             styleOverrides:{
                 root:{
                     color:'#333996',
-                    backgroundColor:'#E8F6EF',
                     opacity:'0.6',
                     padding:'0 8px',
                     borderRadius:'4px',
@@ -42,6 +41,13 @@ const theme =createTheme({
                     '& .MuiSvgIcon-root':{
                         marginRight:'8px'
                     }
+                }
+            }
+        },
+        MuiFormControl:{
+            styleOverrides:{
+                root:{
+                    width:'100%'
                 }
             }
         }

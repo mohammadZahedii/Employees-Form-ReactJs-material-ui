@@ -9,7 +9,7 @@ export default function Employees(){
     return (
         <React.Fragment>
             <PageHeader/>
-            <Paper sx={{m:t=>t.spacing(2),p:t=>t.spacing(3)}}>
+            <Paper sx={{m:t=>t.spacing(2),p:t=>t.spacing(2)}}>
                 <EmployeesForm/>    
             </Paper>            
         </React.Fragment>
