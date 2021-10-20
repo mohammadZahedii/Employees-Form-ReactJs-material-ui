@@ -3,6 +3,10 @@ import SideMenu from '../components/SideMenu'
 import { CssBaseline } from '@mui/material'
 import {createTheme,ThemeProvider} from '@mui/material/styles'
 import Header from '../components/Header'
+import Box from '@mui/material/Box'
+import Employees from '../Pages/Employees'
+
+
 
 const theme =createTheme({
     palette:{
@@ -51,6 +55,14 @@ export default function App(){
             <CssBaseline/>
             <SideMenu />
             <Header/>
+            <Box
+                sx={{
+                    width:['100%',,'calc(100% - 320px)'],
+                    ml:[,,'320px']
+                }}
+            >
+                <Employees />
+            </Box>
         </ThemeProvider>
     )
 }
