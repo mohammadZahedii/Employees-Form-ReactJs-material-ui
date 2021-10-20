@@ -29,6 +29,7 @@ export default function Header(){
                         <InputBase
                             placeholder="my search box"
                             startAdornment={<SearchIcon fontSize="small"/>}
+                            sx={{bgcolor:'white'}}
                             endAdornment={<Box 
                             sx={{
                                 boxShadow:1,
