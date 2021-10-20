@@ -2,7 +2,7 @@ import React from 'react'
 import SideMenu from '../components/SideMenu'
 import { CssBaseline } from '@mui/material'
 import {createTheme,ThemeProvider} from '@mui/material/styles'
-
+import Header from '../components/Header'
 
 const theme =createTheme({
     palette:{
@@ -26,6 +26,7 @@ export default function App(){
         <ThemeProvider theme={theme}>
             <CssBaseline/>
             <SideMenu />
+            <Header/>
         </ThemeProvider>
     )
 }
