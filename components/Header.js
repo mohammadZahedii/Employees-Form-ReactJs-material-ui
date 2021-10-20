@@ -34,7 +34,9 @@ export default function Header(){
                                 fontSize:'12px',
                                 px:'3px',
                                 bgcolor:'#E8F6EF',
-                                mt:'1px'
+                                mt:'1px',
+                                borderRadius:'4px',
+                                cursor:'pointer'
                             }}
                             
                             >Ctrl+K</Box>}
