@@ -9,6 +9,7 @@ import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 import { IconButton } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
+import Box from '@mui/material/Box'
 
 export default function Header(){
 
@@ -27,6 +28,16 @@ export default function Header(){
                         <InputBase
                             placeholder="my search box"
                             startAdornment={<SearchIcon fontSize="small"/>}
+                            endAdornment={<Box 
+                            sx={{
+                                boxShadow:1,
+                                fontSize:'12px',
+                                px:'3px',
+                                bgcolor:'#E8F6EF',
+                                mt:'1px'
+                            }}
+                            
+                            >Ctrl+K</Box>}
                         />
                     </Grid>
                     <Grid item >
