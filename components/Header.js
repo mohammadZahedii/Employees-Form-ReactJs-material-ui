@@ -14,6 +14,7 @@ import Box from '@mui/material/Box'
 export default function Header(){
 
     return (
+        <React.Fragment>
         <AppBar 
         
         position="absolute"
@@ -60,6 +61,8 @@ export default function Header(){
                 </Grid>
             </Toolbar>
         </AppBar>
+        <Toolbar/>
+        </React.Fragment>
     )
 
 }
