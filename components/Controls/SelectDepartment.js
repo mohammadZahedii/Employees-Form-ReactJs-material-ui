@@ -1,14 +1,14 @@
 import React from 'react'
 import { FormControl,MenuItem,FormLabel,InputLabel } from '@mui/material'
 import { Select } from '@mui/material'
-
+import { FormHelperText } from '@mui/material'
 
 export default function SelectDepartment(props){
 
-    const{name,value,onChange,label,options}=props
+    const{name,value,error=null,onChange,label,options}=props
 
     return(
-        <FormControl sx={{mb:2}} variant="outlined">
+        <FormControl sx={{mb:2}} variant="outlined" {... error && {error:true}}>
             <InputLabel>{label}</InputLabel>
             <Select
                 name={name}
@@ -23,8 +23,9 @@ export default function SelectDepartment(props){
                     ))
                 }
             </Select>
-
-
+                {
+                    error && <FormHelperText>{error}</FormHelperText>
+                }
         </FormControl>
     )
 }

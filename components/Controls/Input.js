@@ -4,7 +4,7 @@ import { TextField } from '@mui/material'
 
 export default function Input(props){
 
-    const{name,label,value,onChange,...other}=props
+    const{name,label,error=null,value,onChange,...other}=props
 
     return (
         <TextField
@@ -20,6 +20,7 @@ export default function Input(props){
             fullWidth
             autoComplete="off"
             {...other}
+            {... error && {error:true,helperText:error}}
         />
     )
 

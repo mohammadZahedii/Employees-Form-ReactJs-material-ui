@@ -38,7 +38,10 @@ export default function EmployeesForm(){
 
 
     const[values,setValues]=useState(initialValues)
-    
+    const[errors,setErrors]=useState({})
+
+    console.log(errors)
+
     const handleInputChange=(e)=>{
         const{name,value}=e.target
         setValues({
@@ -46,10 +49,29 @@ export default function EmployeesForm(){
         })
 
     }
+   
+    
+    const validate=()=>{
+        let temp={}
+        temp.fullName=values.fullName?"":"This field is required"
+        temp.email=(/$^|.+@.+..+/).test(values.email)?"":"Email is not valid"
+        temp.mobile=values.mobile.length>9?"":"Minimum 10 number required"
+        temp.departmentID=values.departmentID.length !== 0 ?"": "This field is required"
+        setErrors(temp)
+        return Object.values(temp).every(x=>x==="")
 
+    }
+
+
+    const handleSubmit=(e)=>{
+        e.preventDefault()
+        if(validate()){
+             window.alert('successfully submit')
+        }
+    }
 
     return(
-        <Box component="form" sx={{p:3}} >
+        <Box component="form" sx={{p:3}} onSubmit={handleSubmit} >
             <Grid container spacing={5}>
                 <Grid item xs={12} sm={6}>
                     <Input
@@ -57,18 +79,21 @@ export default function EmployeesForm(){
                         value={values.fullName}
                         label="Full Name"
                         onChange={handleInputChange}
+                        error={errors.fullName}
                     />
                     <Input
                         name="email"
                         value={values.email}
                         label="Email"
                         onChange={handleInputChange}
+                        error={errors.email}
                     />
                     <Input
                         name="mobile"
                         value={values.mobile}
                         label="Mobile"
                         onChange={handleInputChange}
+                        error={errors.mobile}
                     />
                     <Input
                         name="city"
@@ -88,6 +113,7 @@ export default function EmployeesForm(){
                     <SelectDepartment
                         name="departmentID"
                         value={values.departmentID}
+                        error={errors.departmentID}
                         label="Department"
                         onChange={handleInputChange}
                         options={DepartmentCollection}
@@ -109,6 +135,7 @@ export default function EmployeesForm(){
                             text="Submit"
                             type="submit"
                             sx={{mr:1}}
+                            
                         />
                         <MyButton
                             text="Reset"

@@ -10,7 +10,6 @@ export default function MyRadioGroup(props){
 
     const{name,value,label,onChange,items}=props
     
-    console.log(items)
     return(
         <FormControl sx={{mb:1}} variant="standard" component="fieldset">
             <FormLabel component="legend">{label}</FormLabel>
