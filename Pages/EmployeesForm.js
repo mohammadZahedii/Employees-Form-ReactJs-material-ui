@@ -7,7 +7,7 @@ import SelectDepartment from '../components/Controls/SelectDepartment'
 import MyDatePicker from '../components/Controls/MyDatePicker'
 import MyCheckBox from './../components/Controls/MyCheckBox'
 import MyButton from '../components/Controls/MyButton'
-
+import * as employeesService from './../services/EmployeeService'
 
 const initialValues={
     id:0,
@@ -78,7 +78,7 @@ export default function EmployeesForm(){
     const handleSubmit=(e)=>{
         e.preventDefault()
         if(validate()){
-             window.alert('successfully submit')
+             employeesService.SetEmployees(values)
         }
     }
 
