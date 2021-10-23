@@ -12,7 +12,7 @@ const headCells =[
     {id:'email',label:'EmailAddress (personal)'},
     {id:'mobile',label:'Mobile Number'},
     {id:'department',label:'Department'},
-    {id:'actions',label:'Actions'},
+    {id:'actions',label:'Actions',disableSorting:true},
 ]
 
 export default function MyTable(props){
@@ -41,17 +41,22 @@ export default function MyTable(props){
                         {
                             headCells.map(headCell=>(
                                 <TableCell 
-                                    sortDirection='desc'
-                                
+                                    sortDirection={orderBy === headCell.id?order:false}
+                                    align={headCell.id ==='actions'?'center':'left'}
                                     key={headCell.id}>
 
-                                <TableSortLabel
-                                    active={orderBy === headCell.id}
-                                    direction={orderBy === headCell.id?order:'asc'}
-                                    onClick={()=>handleSortRequest(headCell.id)}
-                                >
-                                    {headCell.label}
-                                </TableSortLabel>
+                                        {headCell.disableSorting?
+                                            headCell.label
+                                            :
+                                            <TableSortLabel
+                                            active={orderBy === headCell.id}
+                                            direction={orderBy === headCell.id?order:'asc'}
+                                            onClick={()=>handleSortRequest(headCell.id)}
+                                        >
+                                            {headCell.label}
+                                        </TableSortLabel>    
+                            
+                                }
 
                                 </TableCell>
                             ))
@@ -63,7 +68,6 @@ export default function MyTable(props){
     }
 
 
-
     const handleChangePage=(event,newPage)=>{
         setPage(newPage)
     }
@@ -73,12 +77,45 @@ export default function MyTable(props){
 
     }
 
+    const stableSort=(array,comprator)=>{
 
+        const stablilizedThis=array.map((obj,index)=>[obj,index])
+        console.log(stablilizedThis)
+        stablilizedThis.sort((a,b)=>{
+            const ordering = comprator(a[0],b[0])
+
+            if(ordering!==0) return ordering
+            return a[1] - b[1]
+        })
+        return stablilizedThis.map((el)=>{
+            return el[0]
+        })
+        
+    }
+
+    const getComprator=(order,orderBy)=>{
+
+      console.log(order,orderBy)
+      return order==='asc'
+      ?(a,b)=>descendingComprator(a,b,orderBy)
+      :(a,b)=>-descendingComprator(a,b,orderBy)
+    }
+
+    const descendingComprator=(a,b,orderBy)=>{
+        console.log(b,a)
+        if(a[orderBy]<b[orderBy]){
+            return -1
+        }
+        if(a[orderBy]>b[orderBy]){
+            return 1
+        }
+        return 0
+    }
     return (
         <React.Fragment>
-
                 <Table
                     sx={{
+                        display:['none','table'],
                         marginTop:t=>t.spacing(3),
                         '& thead th':{
                             fontWeight:600,
@@ -99,7 +136,7 @@ export default function MyTable(props){
                     <TblHead/>
                         <TableBody>
                             {
-                                records.slice(page*rowsPerPage,(page*rowsPerPage)+rowsPerPage)
+                                stableSort(records,getComprator(order,orderBy)).slice(page*rowsPerPage,(page*rowsPerPage)+rowsPerPage)
                                 .map(item=>(
                                     <TableRow key={item.id}>
                                             <TableCell>{item.fullName}</TableCell>
@@ -110,10 +147,8 @@ export default function MyTable(props){
                                 ))
                             }
 
-
                         </TableBody>
-            
-
+        
                 </Table>
                 <TablePagination
                     rowsPerPageOptions={pages}
