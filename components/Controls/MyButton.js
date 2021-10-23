@@ -5,7 +5,7 @@ import Button from '@mui/material/Button'
 
 export default function MyButton(props){
 
-const{text,size,onClick,variant,color,...other}=props
+const{text,size,variant,color,...other}=props
 
     return (
         <Button
@@ -13,6 +13,7 @@ const{text,size,onClick,variant,color,...other}=props
             color={color || 'primary'}
             size={size || 'medium'}
             {...other}
+            
         >
             {text}
         </Button>

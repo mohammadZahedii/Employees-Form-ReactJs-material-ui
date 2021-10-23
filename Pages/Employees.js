@@ -9,7 +9,7 @@ import MyButton from './../components/Controls/MyButton'
 import AddIcon from '@mui/icons-material/Add';
 import MyTable from './../components/Controls/MyTable'
 import * as employeeService from './../services/EmployeeService'
-
+import MyPopUp from '../components/Controls/MyPopUp'
 
 
 export default function Employees(){
@@ -19,6 +19,7 @@ export default function Employees(){
         console.log(item)
         return item
     }})
+    const[openPopUp,setOpenPopUp]=useState(false)
 
     useEffect(()=>{
        setRecords(employeeService.getAllEmployees())
@@ -58,16 +59,24 @@ export default function Employees(){
                         startIcon={<AddIcon/>}
                         variant="outlined"
                         sx={{p:1,ml:1}}
+                        onClick={()=>setOpenPopUp(true)}
                     />
                 </Box>
-                <EmployeesForm
-                    setRecords={setRecords}
-                />   
+            
                 <MyTable
                     filterFn={filterFn}
                     records={records}
                 /> 
-            </Paper>            
+            </Paper> 
+            <MyPopUp
+                    title="Employee Form"
+                    openPopUp={openPopUp}
+                    setOpenPopUp={setOpenPopUp}
+                >
+                    <EmployeesForm
+                        setRecords={setRecords}
+                    />
+                </MyPopUp>           
         </React.Fragment>
 
     )

@@ -44,6 +44,15 @@ const theme =createTheme({
                 }
             }
         },
+        MuiDialog:{
+            styleOverrides:{
+                paper:{
+                    padding:'16px',
+                    position:'absolute',
+                    top:'40px'
+                }
+            }
+        },
         MuiFormControl:{
             styleOverrides:{
                 root:{
