@@ -15,12 +15,31 @@ import * as employeeService from './../services/EmployeeService'
 export default function Employees(){
 
     const[records,setRecords]=useState([])
+    const[filterFn,setFilterFn]=useState({fn:item=>{
+        console.log(item)
+        return item
+    }})
 
     useEffect(()=>{
        setRecords(employeeService.getAllEmployees())
     },[])
 
-    console.log(records)
+    //console.log(records)
+
+
+    const handleSearch=(e)=>{
+        let target = e.target
+        
+        setFilterFn({
+            fn:items=>{
+                if(target.value==="")
+                    return items
+                else
+                    return items.filter(x=>x.fullName.toLowerCase().includes(target.value))
+            }
+        })
+
+    }
     return (
         <React.Fragment>
             <PageHeader/>
@@ -32,6 +51,7 @@ export default function Employees(){
                             startAdornment:<SearchIcon sx={{color:t=>t.palette.common.black}}/>
                         }}
                         sx={{width:['60%',,'80%']}}
+                        onChange={handleSearch}
                     />
                     <MyButton 
                         text="Add New"
@@ -44,6 +64,7 @@ export default function Employees(){
                     setRecords={setRecords}
                 />   
                 <MyTable
+                    filterFn={filterFn}
                     records={records}
                 /> 
             </Paper>            

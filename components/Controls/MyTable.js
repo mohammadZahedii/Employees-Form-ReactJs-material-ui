@@ -17,7 +17,7 @@ const headCells =[
 
 export default function MyTable(props){
 
-    const{records}=props
+    const{records,filterFn}=props
 
     const pages=[5,10,25]
     const [page,setPage]=useState(0)
@@ -80,7 +80,7 @@ export default function MyTable(props){
     const stableSort=(array,comprator)=>{
 
         const stablilizedThis=array.map((obj,index)=>[obj,index])
-        console.log(stablilizedThis)
+        // console.log(stablilizedThis)
         stablilizedThis.sort((a,b)=>{
             const ordering = comprator(a[0],b[0])
 
@@ -95,14 +95,14 @@ export default function MyTable(props){
 
     const getComprator=(order,orderBy)=>{
 
-      console.log(order,orderBy)
+    //   console.log(order,orderBy)
       return order==='asc'
       ?(a,b)=>descendingComprator(a,b,orderBy)
       :(a,b)=>-descendingComprator(a,b,orderBy)
     }
 
     const descendingComprator=(a,b,orderBy)=>{
-        console.log(b,a)
+        // console.log(b,a)
         if(a[orderBy]<b[orderBy]){
             return -1
         }
@@ -136,7 +136,7 @@ export default function MyTable(props){
                     <TblHead/>
                         <TableBody>
                             {
-                                stableSort(records,getComprator(order,orderBy)).slice(page*rowsPerPage,(page*rowsPerPage)+rowsPerPage)
+                                stableSort(filterFn.fn(records),getComprator(order,orderBy)).slice(page*rowsPerPage,(page*rowsPerPage)+rowsPerPage)
                                 .map(item=>(
                                     <TableRow key={item.id}>
                                             <TableCell>{item.fullName}</TableCell>
