@@ -22,18 +22,38 @@ export default function MyTable(props){
     const pages=[5,10,25]
     const [page,setPage]=useState(0)
     const [rowsPerPage,setRowsPerPage]=useState(5)
-
+    const [order,setOrder]=useState()
+    const [orderBy,setOrderBy]=useState()
 
 
     const TblHead = props=>{
 
+        const handleSortRequest=(CellId)=>{
+            const isAsc= orderBy === CellId && order === 'asc'
+
+            setOrder(isAsc?'desc':'asc')
+            setOrderBy(CellId)
+        }
 
         return(
             <TableHead>
                     <TableRow>
                         {
                             headCells.map(headCell=>(
-                                <TableCell key={headCell.id}>{headCell.label}</TableCell>
+                                <TableCell 
+                                    sortDirection='desc'
+                                
+                                    key={headCell.id}>
+
+                                <TableSortLabel
+                                    active={orderBy === headCell.id}
+                                    direction={orderBy === headCell.id?order:'asc'}
+                                    onClick={()=>handleSortRequest(headCell.id)}
+                                >
+                                    {headCell.label}
+                                </TableSortLabel>
+
+                                </TableCell>
                             ))
 
                         }
