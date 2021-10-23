@@ -21,7 +21,7 @@ const initialValues={
     isPermanent:false
 }
 
-const DepartmentCollection=[
+export const DepartmentCollection=[
 
     {id:'1',title:'Development'},
     {id:'2',title:'Marketing'},
@@ -34,8 +34,9 @@ const genderItem=[
     {id:'other',title:'Other'},
 ]
 
-export default function EmployeesForm(){
+export default function EmployeesForm(props){
 
+    const{setRecords}=props
 
     const[values,setValues]=useState(initialValues)
     const[errors,setErrors]=useState({})
@@ -79,6 +80,7 @@ export default function EmployeesForm(){
         e.preventDefault()
         if(validate()){
              employeesService.SetEmployees(values)
+             setRecords(employeesService.getAllEmployees())
         }
     }
 

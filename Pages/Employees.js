@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import PageHeader from './../components/pageHeader'
 import EmployeesForm from './EmployeesForm'
 import Paper from '@mui/material/Paper'
@@ -7,9 +7,20 @@ import Input from './../components/Controls/Input'
 import SearchIcon from '@mui/icons-material/Search';
 import MyButton from './../components/Controls/MyButton'
 import AddIcon from '@mui/icons-material/Add';
+import MyTable from './../components/Controls/MyTable'
+import * as employeeService from './../services/EmployeeService'
+
+
 
 export default function Employees(){
 
+    const[records,setRecords]=useState([])
+
+    useEffect(()=>{
+       setRecords(employeeService.getAllEmployees())
+    },[])
+
+    console.log(records)
     return (
         <React.Fragment>
             <PageHeader/>
@@ -29,7 +40,12 @@ export default function Employees(){
                         sx={{p:1,ml:1}}
                     />
                 </Box>
-                <EmployeesForm/>    
+                <EmployeesForm
+                    setRecords={setRecords}
+                />   
+                <MyTable
+                    records={records}
+                /> 
             </Paper>            
         </React.Fragment>
 
