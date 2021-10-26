@@ -5,6 +5,10 @@ import { TableRow } from '@mui/material'
 import {TableCell,TableBody} from '@mui/material'
 import { TablePagination } from '@mui/material'
 import { TableSortLabel } from '@mui/material'
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import ActionButton from './ActionButton'
+
 
 
 const headCells =[
@@ -143,6 +147,23 @@ export default function MyTable(props){
                                             <TableCell>{item.email}</TableCell>
                                             <TableCell>{item.mobile}</TableCell>
                                             <TableCell>{item.department}</TableCell>
+                                            <TableCell align="right">
+                                                <ActionButton
+                                                    Mycolor="primary"
+                                                
+                                                
+                                                >
+                                                    <EditIcon/>
+                                                </ActionButton>
+                                                <ActionButton
+                                                    Mycolor="secondary"
+                                                
+                                                
+                                                
+                                                >
+                                                    <DeleteIcon/>
+                                                </ActionButton>
+                                            </TableCell>
                                     </TableRow>
                                 ))
                             }
