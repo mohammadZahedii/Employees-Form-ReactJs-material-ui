@@ -72,6 +72,7 @@ export default function Employees(){
         employeeService.updateEmployees(employees)
         resetForm()
         setOpenPopUp(false)
+        setRecordForEdit(null)
         setRecords(employeeService.getAllEmployees())
         setNotify({
             isOpen:true,
@@ -121,7 +122,7 @@ export default function Employees(){
                         startIcon={<AddIcon/>}
                         variant="outlined"
                         sx={{p:1,ml:1}}
-                        onClick={()=>setOpenPopUp(true)}
+                        onClick={()=>{setOpenPopUp(true);setRecordForEdit(null)}}
                     />
                 </Box>
             
