@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import Input from './../components/Controls/Input'
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
@@ -36,7 +36,7 @@ const genderItem=[
 
 export default function EmployeesForm(props){
 
-    const{setRecords,addOrEdit}=props
+    const{setRecords,addOrEdit,recordForEdit,setRecordForEdit}=props
 
     const[values,setValues]=useState(initialValues)
     const[errors,setErrors]=useState({})
@@ -52,7 +52,7 @@ export default function EmployeesForm(props){
 
     }
 
-    
+        
     const validate=(fieldValues=values)=>{
         let temp={...errors}
         if('fullName' in fieldValues){
@@ -89,6 +89,15 @@ export default function EmployeesForm(props){
         setValues(initialValues)
     }
 
+    useEffect(()=>{
+        if(recordForEdit != null){
+            setValues({
+                ...recordForEdit
+            })
+
+        }
+      
+    },[recordForEdit])
     return(
         <Box component="form" sx={{p:3}} onSubmit={handleSubmit} >
             <Grid container spacing={5}>

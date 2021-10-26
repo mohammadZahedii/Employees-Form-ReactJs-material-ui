@@ -21,7 +21,7 @@ const headCells =[
 
 export default function MyTable(props){
 
-    const{records,filterFn}=props
+    const{records,filterFn,openInPopUp}=props
 
     const pages=[5,10,25]
     const [page,setPage]=useState(0)
@@ -150,18 +150,20 @@ export default function MyTable(props){
                                             <TableCell align="right">
                                                 <ActionButton
                                                     Mycolor="primary"
+                                                    onClick={()=>openInPopUp(item)}
                                                 
                                                 
                                                 >
-                                                    <EditIcon/>
+                                                    <EditIcon fontSize="small"/>
                                                 </ActionButton>
                                                 <ActionButton
                                                     Mycolor="secondary"
                                                 
                                                 
                                                 
+                                                
                                                 >
-                                                    <DeleteIcon/>
+                                                    <DeleteIcon fontSize="small"/>
                                                 </ActionButton>
                                             </TableCell>
                                     </TableRow>

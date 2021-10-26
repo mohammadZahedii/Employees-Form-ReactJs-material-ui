@@ -20,8 +20,8 @@ export default function Employees(){
         return item
     }})
     const[openPopUp,setOpenPopUp]=useState(false)
-    const[notify,setNotify]=useState({isOpen:true,message:'',type:''})
-
+    const[notify,setNotify]=useState({isOpen:false,message:'',type:''})
+    const[recordForEdit,setRecordForEdit]=useState(null)
 
 
 
@@ -47,15 +47,34 @@ export default function Employees(){
     }
 
     const addOrEdit=(employees,resetForm)=>{
-        employeeService.SetEmployees(employees)
+        if(employees.id == 0){
+            employeeService.SetEmployees(employees)
+            resetForm()
+            setOpenPopUp(false)
+            setRecords(employeeService.getAllEmployees())
+            setNotify({
+                isOpen:true,
+                message:'successfully submited',
+                type:'success'
+            })
+
+        }else{
+        employeeService.updateEmployees(employees)
         resetForm()
         setOpenPopUp(false)
         setRecords(employeeService.getAllEmployees())
         setNotify({
             isOpen:true,
-            message:'successfully submuited',
+            message:'succusfully Edited',
             type:'success'
         })
+    }
+
+
+    }
+    const openInPopUp=(item)=>{
+        setOpenPopUp(true)
+        setRecordForEdit(item)
 
 
     }
@@ -84,6 +103,7 @@ export default function Employees(){
                 <MyTable
                     filterFn={filterFn}
                     records={records}
+                    openInPopUp={openInPopUp}
                 /> 
             </Paper> 
             <MyPopUp
@@ -94,6 +114,8 @@ export default function Employees(){
                     <EmployeesForm
                         setRecords={setRecords}
                         addOrEdit={addOrEdit}
+                        recordForEdit={recordForEdit}
+                        setRecordForEdit={setRecordForEdit}
                     />
                 </MyPopUp>
                 <Notification
