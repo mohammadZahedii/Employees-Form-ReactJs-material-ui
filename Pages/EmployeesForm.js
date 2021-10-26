@@ -36,7 +36,7 @@ const genderItem=[
 
 export default function EmployeesForm(props){
 
-    const{setRecords}=props
+    const{setRecords,addOrEdit}=props
 
     const[values,setValues]=useState(initialValues)
     const[errors,setErrors]=useState({})
@@ -79,9 +79,14 @@ export default function EmployeesForm(props){
     const handleSubmit=(e)=>{
         e.preventDefault()
         if(validate()){
-             employeesService.SetEmployees(values)
-             setRecords(employeesService.getAllEmployees())
+             addOrEdit(values,handleReset)
         }
+    }
+
+    const handleReset=()=>{
+
+        setErrors({})
+        setValues(initialValues)
     }
 
     return(
@@ -154,6 +159,7 @@ export default function EmployeesForm(props){
                         <MyButton
                             text="Reset"
                             color="inherit"
+                            onClick={handleReset}
                         />
                     </Box>
                 </Grid>

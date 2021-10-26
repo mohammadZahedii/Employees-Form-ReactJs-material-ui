@@ -41,6 +41,16 @@ export default function Employees(){
         })
 
     }
+
+    const addOrEdit=(employees,resetForm)=>{
+        employeeService.SetEmployees(employees)
+        resetForm()
+        setOpenPopUp(false)
+        setRecords(employeeService.getAllEmployees())
+
+
+
+    }
     return (
         <React.Fragment>
             <PageHeader/>
@@ -75,6 +85,7 @@ export default function Employees(){
                 >
                     <EmployeesForm
                         setRecords={setRecords}
+                        addOrEdit={addOrEdit}
                     />
                 </MyPopUp>           
         </React.Fragment>
