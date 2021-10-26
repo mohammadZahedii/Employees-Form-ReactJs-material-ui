@@ -41,7 +41,6 @@ export default function EmployeesForm(props){
     const[values,setValues]=useState(initialValues)
     const[errors,setErrors]=useState({})
 
-    console.log(errors)
 
     const handleInputChange=(e)=>{
         const{name,value}=e.target

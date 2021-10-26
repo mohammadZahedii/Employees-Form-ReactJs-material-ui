@@ -28,6 +28,7 @@ export const getAllEmployees=()=>{
 
         
    let employees = JSON.parse(localStorage.getItem(KEYS.employees))
+   console.log(employees)
    let department=DepartmentCollection
     return employees.map(x=>({
         ...x,
@@ -38,13 +39,25 @@ export const getAllEmployees=()=>{
 
 
 export const updateEmployees=(data)=>{
-  
+    console.log(data)
     let employees = getAllEmployees()
-    let recordIndex= employees.findIndex(x=>x.id == data.id)
+
+    let recordIndex=employees.findIndex(x=>x.id == data.id)
     employees[recordIndex]={...data}
+    // employees= employees.filter(x=>x.id != data.id)
+    // employees.push(data)
+    // console.log(employees)
+
+// if we use this,the item that we added push in last item in employees list
         localStorage.setItem(KEYS.employees,JSON.stringify(employees))
 
 
+}
+
+export const deleteEmployees=(id)=>{
+    let employees= getAllEmployees()
+       employees = employees.filter(x=>x.id != id)
+        localStorage.setItem(KEYS.employees,JSON.stringify(employees))
 }
 
 export const generateEmployeeId=(params)=>{

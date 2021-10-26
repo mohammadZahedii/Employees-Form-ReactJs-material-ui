@@ -21,7 +21,7 @@ const headCells =[
 
 export default function MyTable(props){
 
-    const{records,filterFn,openInPopUp}=props
+    const{records,filterFn,openInPopUp,confirmDialog,setConfirmDialog,onDelete}=props
 
     const pages=[5,10,25]
     const [page,setPage]=useState(0)
@@ -158,9 +158,11 @@ export default function MyTable(props){
                                                 </ActionButton>
                                                 <ActionButton
                                                     Mycolor="secondary"
-                                                
-                                                
-                                                
+                                                    onClick={()=>setConfirmDialog({
+                                                        ...confirmDialog,
+                                                        isOpen:true,
+                                                        onConfirm:()=>onDelete(item.id)
+                                                    })}
                                                 
                                                 >
                                                     <DeleteIcon fontSize="small"/>

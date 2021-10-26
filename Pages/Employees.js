@@ -11,18 +11,28 @@ import MyTable from './../components/Controls/MyTable'
 import * as employeeService from './../services/EmployeeService'
 import MyPopUp from '../components/Controls/MyPopUp'
 import Notification from './../components/Controls/Notification'
+import ConfirmDialog from '../components/Controls/ConfirmDialog'
+
+
 
 export default function Employees(){
 
     const[records,setRecords]=useState([])
     const[filterFn,setFilterFn]=useState({fn:item=>{
-        console.log(item)
         return item
     }})
     const[openPopUp,setOpenPopUp]=useState(false)
-    const[notify,setNotify]=useState({isOpen:false,message:'',type:''})
-    const[recordForEdit,setRecordForEdit]=useState(null)
+    const[notify,setNotify]=useState({    
+        isOpen:false,
+        message:'',
+        type:''})
 
+    const[recordForEdit,setRecordForEdit]=useState(null)
+    const[confirmDialog,setConfirmDialog]=useState({
+        isOpen:false,
+        title:'Are you sure to delete this records?',
+        subtitle:"You can't undo this operation",
+    })
 
 
     useEffect(()=>{
@@ -78,6 +88,21 @@ export default function Employees(){
 
 
     }
+
+    const onDelete=(id)=>{
+        setConfirmDialog({
+            ...confirmDialog,
+            isOpen:false
+        })
+        employeeService.deleteEmployees(id)
+        setRecords(employeeService.getAllEmployees())
+        setNotify({
+            isOpen:true,
+            message:'Deleted successfully',
+            type:'error'
+        })
+
+    }
     return (
         <React.Fragment>
             <PageHeader/>
@@ -104,6 +129,9 @@ export default function Employees(){
                     filterFn={filterFn}
                     records={records}
                     openInPopUp={openInPopUp}
+                    confirmDialog={confirmDialog}
+                    setConfirmDialog={setConfirmDialog}
+                    onDelete={onDelete}
                 /> 
             </Paper> 
             <MyPopUp
@@ -121,6 +149,11 @@ export default function Employees(){
                 <Notification
                     notify={notify}
                     setNotify={setNotify}
+                
+                />
+                <ConfirmDialog
+                    confirmDialog={confirmDialog}
+                    setConfirmDialog={setConfirmDialog}
                 
                 />
         </React.Fragment>
