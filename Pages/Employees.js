@@ -10,7 +10,7 @@ import AddIcon from '@mui/icons-material/Add';
 import MyTable from './../components/Controls/MyTable'
 import * as employeeService from './../services/EmployeeService'
 import MyPopUp from '../components/Controls/MyPopUp'
-
+import Notification from './../components/Controls/Notification'
 
 export default function Employees(){
 
@@ -20,6 +20,10 @@ export default function Employees(){
         return item
     }})
     const[openPopUp,setOpenPopUp]=useState(false)
+    const[notify,setNotify]=useState({isOpen:true,message:'',type:''})
+
+
+
 
     useEffect(()=>{
        setRecords(employeeService.getAllEmployees())
@@ -47,7 +51,11 @@ export default function Employees(){
         resetForm()
         setOpenPopUp(false)
         setRecords(employeeService.getAllEmployees())
-
+        setNotify({
+            isOpen:true,
+            message:'successfully submuited',
+            type:'success'
+        })
 
 
     }
@@ -87,7 +95,12 @@ export default function Employees(){
                         setRecords={setRecords}
                         addOrEdit={addOrEdit}
                     />
-                </MyPopUp>           
+                </MyPopUp>
+                <Notification
+                    notify={notify}
+                    setNotify={setNotify}
+                
+                />
         </React.Fragment>
 
     )
